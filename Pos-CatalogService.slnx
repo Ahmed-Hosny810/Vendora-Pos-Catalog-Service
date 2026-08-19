@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="Pos.CatalogService.Application/Pos.CatalogService.Application.csproj" />
+    <Project Path="Pos.CatalogService.Domain/Pos.CatalogService.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Pos.CatalogService.Infrastructure.Persistence/Pos.CatalogService.Infrastructure.Persistence.csproj" />
+    <Project Path="Pos.CatalogService.Infrastructure.Shared/Pos.CatalogService.Infrastructure.Shared.csproj" />
+  </Folder>
+  <Folder Name="/WebApi/">
+    <Project Path="Pos.CatalogService.WebApi/Pos.CatalogService.WebApi.csproj" />
+  </Folder>
+</Solution>

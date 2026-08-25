@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using Pos.CatalogService.Application.Exceptions;
+using Pos.CatalogService.Application.Wrappers;
+using System.Net;
 using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 

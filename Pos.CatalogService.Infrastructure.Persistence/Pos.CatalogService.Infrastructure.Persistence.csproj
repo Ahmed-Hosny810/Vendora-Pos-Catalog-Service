@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\DbConfigurations\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

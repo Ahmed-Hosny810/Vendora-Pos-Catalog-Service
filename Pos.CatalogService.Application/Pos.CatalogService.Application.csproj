@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="DTOS\" />
-    <Folder Include="Features\" />
-    <Folder Include="Mapping\" />
   </ItemGroup>
 
   <ItemGroup>

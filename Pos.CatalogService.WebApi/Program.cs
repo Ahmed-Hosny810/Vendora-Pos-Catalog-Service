@@ -1,9 +1,11 @@
 
 using Pos.CatalogService.Application;
+using Pos.CatalogService.Application.Interfaces.Services;
 using Pos.CatalogService.Infrastructure.Persistence;
 using Pos.CatalogService.Infrastructure.Shared;
 using Pos.CatalogService.WebApi.Extensions;
 using Pos.CatalogService.WebApi.MiddleWares;
+using Pos.CatalogService.WebApi.Services;
 using Serilog;
 
 namespace Pos.CatalogService.WebApi
@@ -37,7 +39,15 @@ namespace Pos.CatalogService.WebApi
 
             builder.Services.AddApplicationLayer();
 
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
             builder.Services.AddControllers();
+
+            // Authentication and Authorization
+
+            builder.Services.AddAuthenticationServices(builder.Configuration);
 
             // Swagger (via extension)
             builder.Services.AddSwaggerExtension();

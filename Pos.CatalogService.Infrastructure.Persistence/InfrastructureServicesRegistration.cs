@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pos.CatalogService.Application.Interfaces;
+using Pos.CatalogService.Application.Interfaces.Repositories;
 using Pos.CatalogService.Infrastructure.Persistence.Contexts;
+using Pos.CatalogService.Infrastructure.Persistence.Repositories;
 using Pos.CatalogService.Infrastructure.Persistence.UnitofWork;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,9 @@ namespace Pos.CatalogService.Infrastructure.Persistence
                 sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "Catalog");
             }));
 
-            //services.AddScoped(typeof(IGenericRepositoryAsync<,>), typeof(GenericRepositoryAsync<,>));
+            services.AddScoped(typeof(IGenericRepositoryAsync<,>), typeof(GenericRepositoryAsync<,>));
+
+            services.AddScoped<ITaxRateRepositoryAsync, TaxRateRepositoryAsync>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

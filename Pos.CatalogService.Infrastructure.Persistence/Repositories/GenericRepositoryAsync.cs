@@ -9,7 +9,7 @@ namespace Pos.CatalogService.Infrastructure.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _dbSet;
-        public GenericRepositoryAsync(ApplicationDbContext context, CancellationToken cancellationToken)
+        public GenericRepositoryAsync(ApplicationDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

@@ -11,8 +11,8 @@ namespace Pos.CatalogService.Infrastructure.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public TaxRateRepositoryAsync(ApplicationDbContext context, CancellationToken cancellationToken)
-            : base(context,cancellationToken)
+        public TaxRateRepositoryAsync(ApplicationDbContext context)
+            : base(context)
         {
             _context = context;
         }

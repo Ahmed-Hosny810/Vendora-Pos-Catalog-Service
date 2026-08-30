@@ -16,8 +16,8 @@ namespace Pos.CatalogService.Infrastructure.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public CategoryRepositoryAsync(ApplicationDbContext context,CancellationToken cancellationToken)
-            : base(context, cancellationToken)
+        public CategoryRepositoryAsync(ApplicationDbContext context)
+            : base(context)
         {
             _context = context;
         }

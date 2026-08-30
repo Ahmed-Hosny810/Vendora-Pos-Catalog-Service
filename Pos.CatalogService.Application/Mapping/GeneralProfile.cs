@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Pos.CatalogService.Application.Features.Categories.DTOS;
+using Pos.CatalogService.Application.Features.Products.DTOS;
 using Pos.CatalogService.Application.Features.TaxRates.DTOS;
 using Pos.CatalogService.Domain.Models;
 
@@ -13,6 +14,27 @@ namespace Pos.CatalogService.Application.Mapping
             CreateMap<TaxRate, TaxRateDto>();
 
             CreateMap<Category, CategoryDto>();
+
+            CreateMap<Product, ProductDto>()
+               .ForMember(
+                   dest => dest.CategoryNameEn,
+                   opt => opt.MapFrom(src => src.Category != null ? src.Category.NameEn : null))
+               .ForMember(
+                   dest => dest.CategoryNameAr,
+                   opt => opt.MapFrom(src => src.Category != null ? src.Category.NameAr : null))
+               .ForMember(
+                   dest => dest.UnitName,
+                   opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Name : null))
+               .ForMember(
+                   dest => dest.UnitSymbol,
+                   opt => opt.MapFrom(src => src.Unit != null ? src.Unit.Symbol : null))
+               .ForMember(
+                   dest => dest.TaxRateName,
+                   opt => opt.MapFrom(src => src.TaxRate != null ? src.TaxRate.Name : null))
+               .ForMember(
+                   dest => dest.TaxRateValue,
+                   opt => opt.MapFrom(src => src.TaxRate != null ? (decimal?) src.TaxRate.Rate : null));
+
         }
     }
 }

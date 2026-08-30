@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Pos.CatalogService.Application.Interfaces.Clients;
+using Pos.CatalogService.Infrastructure.Shared.Clients;
 
 namespace Pos.CatalogService.Infrastructure.Shared
 {
@@ -12,7 +11,12 @@ namespace Pos.CatalogService.Infrastructure.Shared
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            
+            services.AddHttpClient<ITenantBillingClient, TenantBillingClient>(client =>
+            {
+                client.BaseAddress = new Uri(
+                    configuration["Services:TenantBilling:BaseUrl"]!);
+            });
+
             return services;
         }
     }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Pos.CatalogService.Application.Features.Categories.DTOS;
+using Pos.CatalogService.Application.Features.ProductImages.DTOS;
 using Pos.CatalogService.Application.Features.Products.DTOS;
+using Pos.CatalogService.Application.Features.ProductVariants.DTOS;
 using Pos.CatalogService.Application.Features.TaxRates.DTOS;
 using Pos.CatalogService.Domain.Models;
 
@@ -13,7 +15,11 @@ namespace Pos.CatalogService.Application.Mapping
         {
             CreateMap<TaxRate, TaxRateDto>();
 
+            CreateMap<ProductVariant, ProductVariantDto>();
+
             CreateMap<Category, CategoryDto>();
+
+            CreateMap<ProductImage, ProductImageDto>();
 
             CreateMap<Product, ProductDto>()
                .ForMember(

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pos.CatalogService.Application.Features.Products.DTOS
+﻿
+namespace Pos.CatalogService.Application.Features.ProductVariants.DTOS
 {
     public class ProductVariantDto
     {
@@ -29,5 +26,8 @@ namespace Pos.CatalogService.Application.Features.Products.DTOS
         public string? OptionValue2 { get; set; }
 
         public string Status { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
     }
 }

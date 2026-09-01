@@ -6,9 +6,7 @@ using Pos.CatalogService.Application.Interfaces.Repositories;
 using Pos.CatalogService.Infrastructure.Persistence.Contexts;
 using Pos.CatalogService.Infrastructure.Persistence.Repositories;
 using Pos.CatalogService.Infrastructure.Persistence.UnitofWork;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Pos.CatalogService.Infrastructure.Persistence
 {
@@ -27,6 +25,16 @@ namespace Pos.CatalogService.Infrastructure.Persistence
             services.AddScoped(typeof(IGenericRepositoryAsync<,>), typeof(GenericRepositoryAsync<,>));
 
             services.AddScoped<ITaxRateRepositoryAsync, TaxRateRepositoryAsync>();
+
+            services.AddScoped<IProductVariantRepositoryAsync, ProductVariantRepositoryAsync>();
+
+            services.AddScoped<IProductRepositoryAsync, ProductRepositoryAsync>();
+
+            services.AddScoped<IUnitRepositoryAsync, UnitRepositoryAsync>();
+
+            services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
+
+            services.AddScoped<IProductImageRepositoryAsync, ProductImageRepositoryAsync>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pos.CatalogService.Application.Features.ProductImages.DTOS;
+using Pos.CatalogService.Application.Features.ProductVariants.DTOS;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

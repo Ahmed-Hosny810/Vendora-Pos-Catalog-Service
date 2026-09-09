@@ -36,6 +36,8 @@ namespace Pos.CatalogService.Infrastructure.Persistence
 
             services.AddScoped<IProductImageRepositoryAsync, ProductImageRepositoryAsync>();
 
+            services.AddScoped<IImageUploadSessionRepositoryAsync, ImageUploadSessionRepositoryAsync>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

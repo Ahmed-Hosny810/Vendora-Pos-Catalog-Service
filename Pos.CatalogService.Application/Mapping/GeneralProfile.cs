@@ -4,6 +4,7 @@ using Pos.CatalogService.Application.Features.ProductImages.DTOS;
 using Pos.CatalogService.Application.Features.Products.DTOS;
 using Pos.CatalogService.Application.Features.ProductVariants.DTOS;
 using Pos.CatalogService.Application.Features.TaxRates.DTOS;
+using Pos.CatalogService.Application.Features.Units.DTOS;
 using Pos.CatalogService.Domain.Models;
 
 
@@ -18,6 +19,8 @@ namespace Pos.CatalogService.Application.Mapping
             CreateMap<ProductVariant, ProductVariantDto>();
 
             CreateMap<Category, CategoryDto>();
+
+            CreateMap<Unit, UnitDto>();
 
             CreateMap<ProductImage, ProductImageDto>();
 

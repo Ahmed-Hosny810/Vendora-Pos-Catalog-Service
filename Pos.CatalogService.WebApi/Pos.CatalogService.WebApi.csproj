@@ -32,10 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\V1\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Pos.CatalogService.Application\Pos.CatalogService.Application.csproj" />
     <ProjectReference Include="..\Pos.CatalogService.Infrastructure.Persistence\Pos.CatalogService.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\Pos.CatalogService.Infrastructure.Shared\Pos.CatalogService.Infrastructure.Shared.csproj" />

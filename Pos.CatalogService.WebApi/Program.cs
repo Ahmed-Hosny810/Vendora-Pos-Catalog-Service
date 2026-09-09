@@ -37,7 +37,7 @@ namespace Pos.CatalogService.WebApi
 
             builder.Services.AddSharedInfrastructureServices(builder.Configuration);
 
-            builder.Services.AddApplicationLayer();
+            builder.Services.AddApplicationLayer(builder.Configuration);
 
             builder.Services.AddHttpContextAccessor();
 

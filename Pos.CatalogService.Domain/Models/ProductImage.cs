@@ -14,6 +14,8 @@ namespace Pos.CatalogService.Domain.Models
 
         public string ImageUrl { get; set; } = null!;
 
+        public string StorageKey { get; set; } = null!;
+
         public int SortOrder { get; set; }
 
         public bool IsMain { get; set; }

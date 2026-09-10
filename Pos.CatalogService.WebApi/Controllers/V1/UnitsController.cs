@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pos.CatalogService.Application.Common.Constants;
 using Pos.CatalogService.Application.Features.Units.Commands.CreateCommand;
 using Pos.CatalogService.Application.Features.Units.Commands.UpdateCommand;
 using Pos.CatalogService.Application.Features.Units.DTOS;
@@ -26,6 +27,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Create(
             [FromBody] CreateUnitCommand command,
             CancellationToken cancellationToken)
@@ -42,6 +44,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPut]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Update(
             [FromBody] UpdateUnitCommand command,
             CancellationToken cancellationToken)
@@ -59,6 +62,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("search")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<PagedResponse<IEnumerable<UnitDto>>>> GetAll(
             [FromBody] GetUnitsQuery query,
             CancellationToken cancellationToken)
@@ -69,6 +73,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpGet("{unitId:guid}")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<Response<UnitDto>>> GetById(
             Guid unitId,
             CancellationToken cancellationToken)

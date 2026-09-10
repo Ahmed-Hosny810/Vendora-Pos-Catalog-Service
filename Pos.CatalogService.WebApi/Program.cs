@@ -5,6 +5,7 @@ using Pos.CatalogService.Infrastructure.Persistence;
 using Pos.CatalogService.Infrastructure.Shared;
 using Pos.CatalogService.WebApi.Extensions;
 using Pos.CatalogService.WebApi.MiddleWares;
+using Pos.CatalogService.WebApi.Policies;
 using Pos.CatalogService.WebApi.Services;
 using Serilog;
 
@@ -38,6 +39,8 @@ namespace Pos.CatalogService.WebApi
             builder.Services.AddSharedInfrastructureServices(builder.Configuration);
 
             builder.Services.AddApplicationLayer(builder.Configuration);
+
+            builder.Services.AddAppPolicies();
 
             builder.Services.AddHttpContextAccessor();
 

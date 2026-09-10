@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Pos.CatalogService.Application.Common.Constants;
 using Pos.CatalogService.Application.Features.ProductVariants.Commands.ActivateCommand;
 using Pos.CatalogService.Application.Features.ProductVariants.Commands.CreateCommand;
-using Pos.CatalogService.Application.Features.ProductVariants.Commands.DeactivateCommand;
 using Pos.CatalogService.Application.Features.ProductVariants.Commands.UpdateCommand;
 using Pos.CatalogService.Application.Features.ProductVariants.DTOS;
 using Pos.CatalogService.Application.Features.ProductVariants.Queries.GetByProductIdQuery;
@@ -26,6 +26,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Create(
             [FromBody] CreateProductVariantCommand command,
             CancellationToken cancellationToken)
@@ -42,6 +43,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPut]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Update(
             [FromBody] UpdateProductVariantCommand command,
             CancellationToken cancellationToken)
@@ -59,6 +61,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("activate")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<bool>>> Activate(
             ActivateProductVariantCommand command,
             CancellationToken cancellationToken)
@@ -76,6 +79,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("{variantId:guid}/deactivate")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<bool>>> Deactivate(
              ActivateProductVariantCommand command,
             CancellationToken cancellationToken)
@@ -93,6 +97,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpGet("{productId:guid}")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<Response<IReadOnlyList<ProductVariantDto>>>> GetByProductId(
             Guid productId,
             CancellationToken cancellationToken)

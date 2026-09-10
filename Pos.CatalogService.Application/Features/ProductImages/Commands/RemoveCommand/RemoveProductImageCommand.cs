@@ -18,14 +18,18 @@ namespace Pos.CatalogService.Application.Features.ProductImages.Commands.RemoveC
         private readonly ICurrentUserService _currentUserService;
         private readonly IUnitOfWork _unitOfWork;
 
+        private readonly IImageStorageService _imageStorageService;
+
         public RemoveProductImageCommandHandler(
             IProductImageRepositoryAsync imageRepository,
-            ICurrentUserService currentUserService,
+            ICurrentUserService currentUserService, IImageStorageService imageStorageService,
             IUnitOfWork unitOfWork)
         {
             _imageRepository = imageRepository;
             _currentUserService = currentUserService;
             _unitOfWork = unitOfWork;
+            _imageStorageService = imageStorageService;
+
         }
 
         public async Task<Result> Handle(
@@ -45,9 +49,13 @@ namespace Pos.CatalogService.Application.Features.ProductImages.Commands.RemoveC
             if (image == null)
                 return Result.Failure($"Product image with Id {request.ImageId} not found.");
 
+            var storageKey = image.StorageKey;
+
             _imageRepository.Delete(image);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            await _imageStorageService.DeleteAsync(storageKey,cancellationToken);
 
             return Result.Success();
         }

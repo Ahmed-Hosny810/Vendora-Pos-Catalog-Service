@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Pos.CatalogService.Application.Common.Constants;
 using Pos.CatalogService.Application.Features.Categories.Commands.ActivateCommand;
 using Pos.CatalogService.Application.Features.Categories.Commands.CreateCommand;
 using Pos.CatalogService.Application.Features.Categories.Commands.DeactivateCommand;
@@ -27,6 +28,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Create(
             [FromBody] CreateCategoryCommand command,
             CancellationToken cancellationToken)
@@ -43,6 +45,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPut("{categoryId:guid}")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Update(
             Guid categoryId,
             [FromBody] UpdateCategoryCommand command,
@@ -62,6 +65,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("activate")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<bool>>> Activate(
             ActivateCategoryCommand command,
             CancellationToken cancellationToken)
@@ -79,6 +83,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("deactivate")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<bool>>> Deactivate(
             DeactivateCategoryCommand command,
             CancellationToken cancellationToken)
@@ -96,6 +101,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("search")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<PagedResponse<IEnumerable<CategoryDto>>>> GetAll(
             [FromBody] GetAllCategoriesQuery query,
             CancellationToken cancellationToken)
@@ -106,6 +112,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpGet("{categoryId:guid}")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<Response<CategoryDto>>> GetById(
             Guid categoryId,
             CancellationToken cancellationToken)

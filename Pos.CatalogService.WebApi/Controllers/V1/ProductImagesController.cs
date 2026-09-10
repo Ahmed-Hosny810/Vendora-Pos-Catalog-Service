@@ -2,7 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Pos.CatalogService.Application.Common.Constants;
 using Pos.CatalogService.Application.Features.ProductImages.Commands.CompleteUploadCommand;
+using Pos.CatalogService.Application.Features.ProductImages.Commands.RemoveCommand;
 using Pos.CatalogService.Application.Features.ProductImages.Commands.StartUploadCommand;
 using Pos.CatalogService.Application.Features.ProductImages.DTOS;
 using Pos.CatalogService.Application.Features.ProductImages.Queries.GetByProductIdQuery;
@@ -23,7 +25,8 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
             _mediator = mediator;
         }
 
-        [HttpGet("product/{productId:guid}")]
+        [HttpGet("{productId:guid}")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<Response<IReadOnlyList<ProductImageDto>>>> GetByProductId(Guid productId,CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(
@@ -46,6 +49,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("uploads/start")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<StartProductImageUploadResponse>>>StartUpload([FromBody] StartProductImageUploadCommand command,
                 CancellationToken cancellationToken)
         {
@@ -66,6 +70,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("uploads/complete")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>>CompleteUpload([FromBody] CompleteProductImageUploadCommand command,
                 CancellationToken cancellationToken)
         {
@@ -83,6 +88,29 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
             return Ok(
                 new Response<Guid>(
                     data: result.Value));
+        }
+
+        [HttpDelete("{imageId:guid}")]
+        [Authorize(policy: CatalogPolicies.CanManageCatalog)]
+        public async Task<ActionResult<Response<bool>>> Delete(Guid imageId,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(
+                new RemoveProductImageCommand
+                {
+                    ImageId = imageId
+                },
+                cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(
+                    new Response<Guid>(
+                        message: string.Join(", ", result.Errors)));
+            }
+
+            return Ok(
+                new Response<bool>(data: result.IsSuccess,message:"Image deleted successfully"));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using Azure;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 using Microsoft.Extensions.Options;
 using Pos.CatalogService.Application.DTOS.Storage;
@@ -28,7 +29,7 @@ namespace Pos.CatalogService.Infrastructure.Shared.Services
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(_options.ProductImagesContainer);
 
-            await containerClient.CreateIfNotExistsAsync();
+            await containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
 
             var blobClient = containerClient.GetBlobClient(storageKey);
 

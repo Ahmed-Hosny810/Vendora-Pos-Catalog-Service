@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pos.CatalogService.Application.Common.Constants;
 using Pos.CatalogService.Application.Features.TaxRates.Commands.ActivateCommand;
 using Pos.CatalogService.Application.Features.TaxRates.Commands.CreateCommand;
 using Pos.CatalogService.Application.Features.TaxRates.Commands.DeactivateCommand;
@@ -29,6 +30,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Create(
             [FromBody] CreateTaxRateCommand command,
             CancellationToken cancellationToken)
@@ -45,6 +47,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPut]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> Update(
             [FromBody] UpdateTaxRateCommand command,
             CancellationToken cancellationToken)
@@ -62,6 +65,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("activate")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<bool>>> Activate(
             ActivateTaxRateCommand command,
             CancellationToken cancellationToken)
@@ -79,6 +83,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("deactivate")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<bool>>> Deactivate(
             DeactivateTaxRateCommand command,
             CancellationToken cancellationToken)
@@ -96,6 +101,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpPost("set-default")]
+        [Authorize(Policy = CatalogPolicies.CanManageCatalog)]
         public async Task<ActionResult<Response<Guid>>> SetDefault(
             SetDefaultTaxRateCommand command,
             CancellationToken cancellationToken)
@@ -113,6 +119,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpGet]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<Response<IReadOnlyList<TaxRateDto>>>> GetAll(
             CancellationToken cancellationToken)
         {
@@ -129,6 +136,7 @@ namespace Pos.CatalogService.WebApi.Controllers.V1
         }
 
         [HttpGet("{taxRateId:guid}")]
+        [Authorize(Policy = CatalogPolicies.CanViewCatalog)]
         public async Task<ActionResult<Response<TaxRateDto>>> GetById(
             Guid taxRateId,
             CancellationToken cancellationToken)
